@@ -1,26 +1,49 @@
-# Automated Backup Script
+# 📦 Automated Backup Script
 
-**Author:** Ajima Fabian  
-**GitHub:** [https://github.com/yourusername](https://github.com/yourusername)  
+## 📖 Overview
+This is a simple and efficient **Bash-based backup automation script** that allows you to back up important directories into compressed archive files with timestamps.
 
----
-
-## Project Purpose
-This project demonstrates automation skills for **system maintenance tasks**.  
-Manually backing up directories is tedious and error-prone. This script automates the process, ensuring backups are **timely, versioned, and logged**.
+It is designed for **Linux environments** and can be easily scheduled using `cron` for fully automated backups.
 
 ---
 
-## Skills Demonstrated
-- Bash scripting and automation  
-- File system and directory management  
-- Logging and error handling  
-- Practical DevOps and system administration skills  
+## 🚀 Features
+- 📁 Backup multiple directories at once  
+- 🕒 Timestamped backup files  
+- 📦 Compressed archives (`.tar.gz`)  
+- 📝 Logging of backup activities  
+- ⚠️ Error handling for missing directories  
+- 🔄 Easy automation with cron jobs  
 
 ---
 
-## How to Use
-1. Make the script executable:  
-```bash
+## 🛠️ Requirements
+- Linux OS (RHEL, Ubuntu, Debian, etc.)
+- Bash shell
+- `tar` installed (comes pre-installed on most systems)
+
+---
+
+## 📂 Project Structure
+backup-script/
+│── backup.sh
+│── README.md
+
+---
+
+## 📥 Installation & Setup
+
+### 1. Clone the Repository
+git clone https://github.com/Ajima-Fabian/your-repo-name.git
+cd your-repo-name
+
+### 2. Make script Executable
 chmod +x backup.sh
+
+### 3. Edit Backup Directories 
+Open the script and modifications this section:
+SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")
+BACKUP_DEST="$HOME/backups"
+
+### 4. Run the script
 ./backup.sh
