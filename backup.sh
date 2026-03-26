@@ -3,8 +3,8 @@
 =========================================================================
 Automated Backup Script
 Author: Ajima Fabian
-Email: your-email@example.com
-GitHub: https://github.com/yourusername
+Email: ajimafabian18@gmail.com
+GitHub: https://github.com/Ajima-Fabian 
 
 Description:
 Automates backups of specified directories with timestamps and logs.
@@ -15,11 +15,11 @@ License: MIT License
 '
 
 echo "===== Automated Backup Script ====="
-echo "Date: $(date)"
+echo "Date: $(date +%Y-%m-%d_%H-%M+%S)"
 echo ""
 
 # Directories to backup (edit this array)
-SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")  # Add any directories you want
+SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")  # Add any directories of your choice
 BACKUP_DEST="$HOME/backups"                       # Destination directory
 LOG_FILE="$HOME/backup.log"
 
@@ -30,7 +30,7 @@ mkdir -p "$BACKUP_DEST"
 for DIR in "${SOURCE_DIRS[@]}"; do
     if [ -d "$DIR" ]; then
         BASENAME=$(basename "$DIR")
-        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        TIMESTAMP=$(date +%Y-%m-%d_%H-%M+%S)
         DEST="$BACKUP_DEST/${BASENAME}_backup_$TIMESTAMP.tar.gz"
         tar -czf "$DEST" "$DIR"
         if [ $? -eq 0 ]; then
