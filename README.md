@@ -36,19 +36,26 @@ backup-script/
 ### 1. Clone the Repository
 '''bash
 git clone https://github.com/Ajima-Fabian/your-repo-name.git
+
 cd your-repo-name
 '''
+
+---
 
 ### 2. Make script Executable
 '''bash
 chmod +x backup.sh
 '''
 
+---
+
 ### 3. Edit Backup Directories 
 Open the script and modifications this section:
 
 SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")
 BACKUP_DEST="$HOME/backups"
+
+---
 
 ### 4. Run the script
 '''bash
