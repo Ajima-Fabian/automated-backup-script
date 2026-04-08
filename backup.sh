@@ -26,6 +26,9 @@ LOG_FILE="$HOME/backup.log"
 # Create backup destination if it doesn't exist
 mkdir -p "$BACKUP_DEST"
 
+# Create log file if doesn't exist 
+touch $LOG_FILE
+
 # Backup process
 for DIR in "${SOURCE_DIRS[@]}"; do
     if [ -d "$DIR" ]; then
@@ -34,12 +37,12 @@ for DIR in "${SOURCE_DIRS[@]}"; do
         DEST="$BACKUP_DEST/${BASENAME}_backup_$TIMESTAMP.tar.gz"
         tar -czf "$DEST" "$DIR"
         if [ $? -eq 0 ]; then
-            echo "✅ Backup successful: $DEST" | tee -a "$LOG_FILE"
+            echo "Backup successful: $DEST" | tee -a "$LOG_FILE"
         else
-            echo "❌ Backup failed for $DIR" | tee -a "$LOG_FILE"
+            echo "Backup failed for $DIR" | tee -a "$LOG_FILE"
         fi
     else
-        echo "⚠️  Source directory does not exist: $DIR" | tee -a "$LOG_FILE"
+        echo "Source directory does not exist: $DIR" | tee -a "$LOG_FILE"
     fi
 done
 
