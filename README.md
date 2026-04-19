@@ -25,19 +25,19 @@ It is designed for **Linux environments** and can be easily scheduled using `cro
 ---
 
 ## 📂 Project Structure
+'''bash
 backup-script/
 │── backup.sh
 │── README.md
-
+'''
 ---
 
 ## 📥 Installation & Setup
 
 ### 1. Clone the Repository
 '''bash
-git clone https://github.com/Ajima-Fabian/your-repo-name.git
-
-cd your-repo-name
+git clone https://github.com/Ajima-Fabian/automated-backup-script.git
+cd automated-backup-script 
 '''
 
 ---
