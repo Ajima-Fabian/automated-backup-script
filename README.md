@@ -61,3 +61,8 @@ BACKUP_DEST="$HOME/backups"
 ```bash
 ./backup.sh
 ```
+---
+
+## Author 
+
+Ajima Fabian 
