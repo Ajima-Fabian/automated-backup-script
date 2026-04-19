@@ -1,51 +1,96 @@
 #!/bin/bash
 : '
 =========================================================================
-Automated Backup Script
+Advanced Automated Backup Script (v2)
 Author: Ajima Fabian
 Email: ajimafabian18@gmail.com
-GitHub: https://github.com/Ajima-Fabian 
+GitHub: https://github.com/Ajima-Fabian
 
-Description:
-Automates backups of specified directories with timestamps and logs.
-Supports scheduling with cron for fully automated backups.
+Features:
+- Timestamped backups
+- Logging system
+- Error handling
+- Old backup cleanup
+- Disk usage check
+- Safer quoting & fixes
+- Cron-ready automation
 
 License: MIT License
 =========================================================================
 '
 
-echo "===== Automated Backup Script ====="
-echo "Date: $(date +%Y-%m-%d_%H-%M+%S)"
+echo "===== Advanced Automated Backup Script ====="
+echo "Date: $(date +%Y-%m-%d_%H-%M-%S)"
 echo ""
 
-# Directories to backup (edit this array)
-SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")  # Add any directories of your choice
-BACKUP_DEST="$HOME/backups"                       # Destination directory
+# =========================
+# CONFIGURATION
+# =========================
+SOURCE_DIRS=("$HOME/Documents" "$HOME/Pictures")
+BACKUP_DEST="$HOME/backups"
 LOG_FILE="$HOME/backup.log"
+RETENTION_DAYS=7
 
-# Create backup destination if it doesn't exist
+# =========================
+# SETUP
+# =========================
 mkdir -p "$BACKUP_DEST"
+touch "$LOG_FILE"
 
-# Create log file if doesn't exist 
-touch $LOG_FILE
+echo "[$(date +%Y-%m-%d_%H-%M-%S)] Backup started" >> "$LOG_FILE"
 
-# Backup process
+# =========================
+# DISK SPACE CHECK
+# =========================
+echo "Checking available disk space..."
+df -h "$BACKUP_DEST" | tee -a "$LOG_FILE"
+echo ""
+
+# =========================
+# BACKUP PROCESS
+# =========================
 for DIR in "${SOURCE_DIRS[@]}"; do
+
     if [ -d "$DIR" ]; then
+
         BASENAME=$(basename "$DIR")
-        TIMESTAMP=$(date +%Y-%m-%d_%H-%M+%S)
+        TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+
         DEST="$BACKUP_DEST/${BASENAME}_backup_$TIMESTAMP.tar.gz"
+
+        echo "Backing up: $DIR"
+
         tar -czf "$DEST" "$DIR"
+
         if [ $? -eq 0 ]; then
-            echo "Backup successful: $DEST" | tee -a "$LOG_FILE"
+            echo "SUCCESS: $DEST" | tee -a "$LOG_FILE"
         else
-            echo "Backup failed for $DIR" | tee -a "$LOG_FILE"
+            echo "ERROR: Backup failed for $DIR" | tee -a "$LOG_FILE"
         fi
+
     else
-        echo "Source directory does not exist: $DIR" | tee -a "$LOG_FILE"
+        echo "WARNING: Directory not found: $DIR" | tee -a "$LOG_FILE"
     fi
+
 done
 
+# =========================
+# CLEANUP OLD BACKUPS
+# =========================
 echo ""
-echo "Backup process complete. Logs saved to $LOG_FILE"
-echo "===== Backup Complete ====="
+echo "Cleaning backups older than $RETENTION_DAYS days..."
+
+find "$BACKUP_DEST" -type f -name "*.tar.gz" -mtime +$RETENTION_DAYS -exec rm -f {} \;
+
+echo "Old backups cleaned" | tee -a "$LOG_FILE"
+
+# =========================
+# FINAL STATUS
+# =========================
+echo ""
+echo "Backup process complete."
+echo "Logs saved to: $LOG_FILE"
+
+echo "[$(date +%Y-%m-%d_%H-%M-%S)] Backup finished" >> "$LOG_FILE"
+
+echo "===== DONE ====="
