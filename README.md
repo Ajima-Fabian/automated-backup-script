@@ -25,27 +25,27 @@ It is designed for **Linux environments** and can be easily scheduled using `cro
 ---
 
 ## 📂 Project Structure
-'''bash
+```bash
 backup-script/
 │── backup.sh
 │── README.md
-'''
+```
 ---
 
 ## 📥 Installation & Setup
 
 ### 1. Clone the Repository
-'''bash
+```bash
 git clone https://github.com/Ajima-Fabian/automated-backup-script.git
 cd automated-backup-script 
-'''
+```
 
 ---
 
 ### 2. Make script Executable
-'''bash
+```baah
 chmod +x backup.sh
-'''
+```
 
 ---
 
@@ -58,6 +58,6 @@ BACKUP_DEST="$HOME/backups"
 ---
 
 ### 4. Run the script
-'''bash
+```bash
 ./backup.sh
-'''
+```
